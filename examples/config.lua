@@ -1,7 +1,14 @@
 -- Example configuration. Copy it to:
---   Windows : %APPDATA%\terminal\config.lua
---   Others  : ~/.config/terminal/config.lua  (or $XDG_CONFIG_HOME/terminal/config.lua)
+--   Windows : %APPDATA%\terminal\init.lua
+--   Others  : ~/.config/terminal/init.lua  (or $XDG_CONFIG_HOME/terminal/init.lua)
 -- or point to another file with the TERMINAL_CONFIG environment variable.
+-- The legacy name config.lua still works if no init.lua exists.
+--
+-- Like wezterm: the injected `terminal` object is also a module, so the config can start with
+--   local terminal = require("terminal")
+-- (the app serves it from package.loaded; the runtime require never loads files). For editor
+-- completion copy lua-stubs/terminal.lua (from the repo) next to your config file — lua-language-
+-- server reads it and completes terminal.on/emit/action/os.
 --
 -- The file is watched: saving it live-reloads the font, size, padding, colors, cursor, title,
 -- keys and hooks. If it has an error, the previous configuration is kept and the window title
@@ -13,7 +20,8 @@
 -- a script. A script that takes too long (an infinite loop) is aborted: 2 s when loading and
 -- 250 ms for each key or hook call.
 
--- Available in this file: terminal.os ("windows", "linux", "macos"), terminal.config_dir,
+-- Available in this file (or via the require above): terminal.os ("windows", "linux", "macos"),
+-- terminal.config_dir,
 -- terminal.log("message") to write to stderr, and terminal.action.* (see below).
 local size = 16
 if terminal.os == "macos" then size = 14 end
